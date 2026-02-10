@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Oasis Defender — контроль рисков облака</title>
+  <title>Oasis Defender — FAQ</title>
   <meta name="description" content="Единая карта мультиоблачной инфраструктуры и рисков. Объединяем инфраструктуру разных облаков и частных сред в одном окне. Вы видите реальную связность между системами и приоритетные риски" />
   <meta name="theme-color" content="#1fb79f" />
 
@@ -218,19 +218,6 @@
       grid-template-columns: repeat(12, 1fr);
       gap: 14px;
       margin-top: 16px;
-    }
-    .feature-box{
-      border: 1px solid var(--border2);
-      border-radius: var(--radius2);
-      padding: 16px;
-      background: rgba(255,255,255,.70);
-      box-shadow: var(--shadow2);
-    }
-    .feature-note{
-      margin-top: 12px;
-      font-size: var(--step--1);
-      color: var(--muted);
-      text-align: center;
     }
 
     .card {
@@ -578,6 +565,64 @@
       border-color: rgba(31,183,159,.22);
     }
 
+  
+    /* =========================================
+       FAQ (horizontal rows)
+       ========================================= */
+    .faq-wrap{margin-top:18px}
+    .faq-row{
+      display:grid;
+      grid-template-columns: 320px 1fr;
+      gap: 18px;
+      padding: 16px 16px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(11,18,32,.08);
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 10px 24px rgba(11,18,32,.05);
+      align-items:start;
+    }
+    .faq-row + .faq-row{margin-top:12px}
+    .faq-q{
+      margin:0;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      font-size: var(--step-0);
+      color: rgba(11,18,32,.90);
+    }
+    .faq-tag{
+      margin-top: 7px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size: var(--step--1);
+      color: rgba(11,18,32,.56);
+    }
+    .faq-tag .dot{
+      width: 8px; height: 8px; border-radius: 999px;
+      background: rgba(31,183,159,.78);
+      box-shadow: 0 0 0 4px rgba(31,183,159,.12);
+    }
+    .faq-a{
+      color: var(--muted);
+      line-height: var(--lh);
+      font-size: var(--step-0);
+      max-width: 74ch;
+    }
+    .faq-a b{color: rgba(11,18,32,.88)}
+    .faq-a ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: var(--step--1);
+      line-height: var(--lh);
+    }
+    .faq-a li{margin:6px 0}
+    @media (max-width: 980px){
+      .faq-row{grid-template-columns: 1fr}
+    }
+
+
   </style>
 </head>
 <body>
@@ -600,160 +645,93 @@
   </header>
 
   <main class="wrap">
+
     <section class="hero">
-      <div class="kicker">
+<div class="kicker">
         <img class="kicker-logo" src="assets/logos/OD%20logo%20black.png" alt="Oasis Defender" />
       </div>
 
       <h1>Единая карта мультиоблачной инфраструктуры<br/>и рисков</h1>
-      <p class="sub">Объединяем инфраструктуру разных облаков и частных сред в одном окне. Вы видите реальную связность между системами и приоритетные риски</p>
+      <p class="sub">Часто задаваемые вопросы</p>
+    </section>
 
-      <div class="cloud-strip" aria-label="Платформы и провайдеры">
-        <div class="cloud-row" style="margin-bottom:10px">
-          <span class="cloud-label">Платформы/среды</span>
-          <span class="chip"><span class="dot"></span>VMware</span>
-          <span class="chip"><span class="dot"></span>CloudStack</span>
-          <span class="chip"><span class="dot"></span>OpenStack</span>
-        </div>
-        <div class="cloud-row">
-          <span class="cloud-label">Провайдеры</span>
-          <span class="chip"><span class="dot"></span>Яндекс Cloud</span>
-          <span class="chip"><span class="dot"></span>AWS</span>
-          <span class="chip"><span class="dot"></span>Azure</span>
-          <span class="chip"><span class="dot"></span>Digital Ocean</span>
-          <span class="chip"><span class="dot"></span>Huawei Cloud</span>
+    <section class="section" aria-label="FAQ">
+      <div class="content">
+        <div class="center-title">FAQ</div>
+        <div class="faq-wrap">
+          <div class="faq-row">
+            <div>
+              <div class="faq-q">Как вы подключаетесь к облакам и частным средам?</div>
+              <div class="faq-tag"><span class="dot"></span>Подключение</div>
+            </div>
+            <div class="faq-a">Подключение выполняется через API/учётные данные с правами <b>чтения (read-only)</b>. Мы извлекаем конфигурацию, сети, правила доступа и метаданные, необходимые для построения модели инфраструктуры и анализа связности.</div>
+          </div>
+          <div class="faq-row">
+            <div>
+              <div class="faq-q">Вносит ли Oasis Defender изменения в инфраструктуру автоматически?</div>
+              <div class="faq-tag"><span class="dot"></span>Ремедиация</div>
+            </div>
+            <div class="faq-a">Нет. Oasis Defender формирует карту инфраструктуры, реальные пути доступа и список приоритетных рисков. <b>Исправления выполняются инженерами заказчика</b> осознанно и под контролем.</div>
+          </div>
+          <div class="faq-row">
+            <div>
+              <div class="faq-q">Что именно вы анализируете?</div>
+              <div class="faq-tag"><span class="dot"></span>Покрытие</div>
+            </div>
+            <div class="faq-a">Фокус — <b>конфигурация</b>, <b>сети</b>, <b>политики доступа</b> и <b>реальная достижимость</b> между системами и из внешней сети. Анализ опирается на фактические данные из сред, а не на предположения “по схеме”.</div>
+          </div>
+          <div class="faq-row">
+            <div>
+              <div class="faq-q">Это сканер уязвимостей (CVE) или анализ кода?</div>
+              <div class="faq-tag"><span class="dot"></span>Границы</div>
+            </div>
+            <div class="faq-a">Нет. Поиск CVE/уязвимостей приложений и анализ исходного кода — отдельный класс инструментов. Oasis Defender закрывает другой слой: конфигурации и пути доступа, которые часто становятся причиной инцидентов и провалов аудита.</div>
+          </div>
+          <div class="faq-row">
+            <div>
+              <div class="faq-q">Можно ли развернуть продукт в контуре заказчика?</div>
+              <div class="faq-tag"><span class="dot"></span>Развёртывание</div>
+            </div>
+            <div class="faq-a">Да. При необходимости продукт разворачивается <b>в контуре заказчика</b>. Доступы, хранение секретов и сетевые ограничения организуются под требования ИБ.</div>
+          </div>
+          <div class="faq-row">
+            <div>
+              <div class="faq-q">Как вы определяете приоритетность рисков?</div>
+              <div class="faq-tag"><span class="dot"></span>Риски</div>
+            </div>
+            <div class="faq-a">Приоритизация строится на трёх вещах: <b>достижимость</b> (есть реальный путь), <b>последствия</b> (критичность и blast radius) и <b>минимальная инженерная правка</b>, которая снижает риск.</div>
+          </div>
+          <div class="faq-row">
+            <div>
+              <div class="faq-q">Как часто обновляется модель инфраструктуры?</div>
+              <div class="faq-tag"><span class="dot"></span>Обновления</div>
+            </div>
+            <div class="faq-a">По сценарию внедрения: по расписанию (например, ежедневно) или по событию/изменениям. Важно, что появление новых входов и новых путей доступа фиксируется как изменение и попадает в контроль.</div>
+          </div>
+          <div class="faq-row">
+            <div>
+              <div class="faq-q">Как вы относитесь к локальному firewall на VM (iptables/ufw/Windows Firewall)?</div>
+              <div class="faq-tag"><span class="dot"></span>Hardening</div>
+            </div>
+            <div class="faq-a">Мы считаем локальный firewall <b>дополнительным уровнем защиты</b>, но не заменой сетевой сегментации и политик на уровне облака/виртуальной сети. В модели рисков мы опираемся на сетевую связность и инфраструктурные политики, потому что именно они определяют базовую достижимость. Локальный firewall полезен как «последняя линия» и для hardening, но его настройки должны быть <b>управляемыми и единообразными</b> (IaC/конфигурационное управление), иначе он превращается в источник дрейфа и ложного чувства безопасности.</div>
+          </div>
+          <div class="faq-row">
+            <div>
+              <div class="faq-q">Нужно ли ставить агенты на VM?</div>
+              <div class="faq-tag"><span class="dot"></span>Интеграции</div>
+            </div>
+            <div class="faq-a">По умолчанию — нет. Анализ строится на данных конфигурации и сетевых политик через коннекторы к платформам. Если в будущем потребуется углубление (например, инвентаризация ПО), это решается отдельным контуром/интеграцией.</div>
+          </div>
         </div>
 
-        <div class="hero-actions">
-          <a class="btn primary" href="mailto:info@oasisdefender.ru?subject=Oasis%20Defender%20—%20демо">Запросить демо</a>
-          <a class="btn" href="/product.html">Посмотреть продукт</a>
+        <div class="final-cta" style="margin-top:18px">
+          <a class="btn primary" href="mailto:info@oasisdefender.ru?subject=Oasis%20Defender%20—%20вопрос">Задать вопрос</a>
+          <a class="btn" href="/product.html">К продукту</a>
         </div>
       </div>
     </section>
 
-    <section class="section" aria-label="Ключевые возможности">
-      <div class="feature-box">
-        <div class="grid">
-        <div class="card feature">
-          <h3>Инвентарь и карта</h3>
-          <p>Собираем и объединяем данные из разных облаков и сред и формируем наглядную карту ресурсов и сервисов</p>
-        </div>
-        <div class="card feature">
-          <h3>Анализ сетевой доступности и связности</h3>
-          <p>Анализируем реальные пути доступа между системами и из внешней сети. Учитываются сетевые правила и фактическая связность</p>
-        </div>
-        <div class="card feature">
-          <h3>Приоритизация рисков</h3>
-          <p>Выделяем риски, которые могут быть реализованы на практике и имеют наибольшие последствия</p>
-        </div>
-        <div class="card feature">
-          <h3>Отчёты для ИБ, ИТ и руководства</h3>
-          <p>Отчёты и выгрузки для инженерных задач, аудита и управленческих решений</p>
-        </div>
-        <div class="card feature">
-          <h3>Контроль изменений инфраструктуры</h3>
-          <p>
-            Фиксируем изменения относительно предыдущего состояния инфраструктуры.
-            Уведомляем о новых публичных входах, изменённых правилах и появлении
-            новых путей доступа, которые повышают риск.
-          </p>
-        </div>
-        </div>
-        <div class="feature-note">Подключение выполняется без агентов и без вмешательства в инфраструктуру. Используются только read-only доступы</div>
-      </div>
-    </section>
-
-    <section class="section" aria-label="Два сценария">
-      <div class="grid">
-        <div class="card panel">
-          <div class="panel-head">
-            <span class="badge enterprise">Enterprise</span>
-            <h2>Для корпоративной инфраструктуры и сложных сред</h2>
-          </div>
-          <p>В крупных инфраструктурах ключевая проблема — не отсутствие средств защиты, а целостное понимание связности и приоритетов.</p>
-          <ul class="bullets">
-            <li>Много сред, сегментов и правил, накопленных со временем</li>
-            <li>Разные команды и подрядчики с разной ответственностью</li>
-            <li>Неочевидно, какие риски действительно критичны и почему</li>
-          </ul>
-          <p style="margin-top:12px; font-weight:400; color: rgba(11,18,32,.84);">
-            <strong>Oasis Defender</strong> помогает получить единую картину инфраструктуры и связности между системами, аргументированно расставлять приоритеты по рискам, принимать решения на основе фактических данных.
-          </p>
-        </div>
-
-        <div class="card panel">
-          <div class="panel-head">
-            <span class="badge startup">StartUp</span>
-            <h2>Для быстрорастущих команд и продуктов</h2>
-          </div>
-          <p>При активном росте инфраструктура усложняется быстрее, чем процессы контроля.</p>
-          <ul class="bullets">
-            <li>Сервисы появляются быстрее, чем описываются и проверяются</li>
-            <li>Настройки меняются фрагментарно, без общей картины</li>
-            <li>Риски накапливаются незаметно — до аудита или инцидента</li>
-          </ul>
-          <p style="margin-top:12px; font-weight:400; color: rgba(11,18,32,.84);"><strong>Oasis Defender</strong> помогает увидеть общую картину и снизить риск инцидентов без расширения команды.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" aria-label="Кому полезно">
-      <div class="soft-surface">
-        <div class="center-title">Кому полезно</div>
-        <div class="plain-grid">
-          <div class="plain-item">
-            <h3>Командам стартапов и растущих продуктов</h3>
-            <p>Навести порядок в облачной инфраструктуре, выявить критичные риски и снизить вероятность инцидентов без расширения команды.</p>
-          </div>
-          <div class="plain-item">
-            <h3>DevOps и cloud-инженерам</h3>
-            <p>Быстро получить целостное представление о сетях, правилах доступа и зависимостях между сервисами.</p>
-          </div>
-          <div class="plain-item">
-            <h3>Специалистам по информационной безопасности</h3>
-            <p>Аргументированно расставить приоритеты и закрывать риски на основе реальных путей доступа.</p>
-          </div>
-          <div class="plain-item">
-            <h3>Руководителям ИТ и ИБ</h3>
-            <p>Понимать текущее состояние инфраструктуры, ключевые риски и прогресс их устранения.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    
-    <section class="section" aria-label="Результат">
-      <div class="final-block">
-        <div class="final-head">
-          <h2>Что вы получаете в результате</h2>
-          <p>Мультиоблачная инфраструктура — в одной модели. Результат можно использовать как для инженерной работы, так и для контроля со стороны ИБ и руководства.</p>
-        </div>
-
-        <div class="final-list">
-          <div class="final-item">
-            <b>Единую карту инфраструктуры в разных облаках и средах</b>
-            <p>Все ресурсы и связи у разных провайдеров и в частных средах собраны в одном окне и в единой логике.</p>
-          </div>
-          <div class="final-item">
-            <b>Понимание реальной связности между системами</b>
-            <p>Видно, как сервисы и сегменты связаны между собой вне зависимости от того, где они размещены.</p>
-          </div>
-          <div class="final-item">
-            <b>Приоритетные риски с учётом мультиоблачной архитектуры</b>
-            <p>Риски оцениваются с учётом реальных путей доступа между облаками и средами.</p>
-          </div>
-          <div class="final-item">
-            <b>Материалы для работы и контроля</b>
-            <p>Отчёты и выгрузки, которые можно использовать для инженерных задач, аудита и управленческих решений.</p>
-          </div>
-        </div>
-
-        <div class="final-cta">
-          <a class="btn primary" href="mailto:info@oasisdefender.ru?subject=Oasis%20Defender%20—%20демо">Запросить демо</a>
-          <a class="btn" href="/product.html">Посмотреть продукт</a>
-        </div>
-      </div>
-
+    <section class="section" aria-label="Поддерживаемые платформы">
       <div class="platforms-block" aria-label="Поддерживаемые платформы">
         <h2>Поддерживаемые платформы</h2>
         <p>Мультиоблачные и гибридные архитектуры в единой модели.</p>

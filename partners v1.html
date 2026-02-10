@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Oasis Defender — партнёрам</title>
+  <meta name="description" content="Партнёрская модель Oasis Defender: как оператор или провайдер может встроить анализ мультиоблачной и гибридной инфраструктуры в свой продукт и сервис." />
+  <meta name="theme-color" content="#1fb79f" />
+
+  <!-- Базовые стили из шаблона -->
+  <style>
+    /* =========================================
+       Typography-first, enterprise-clean layout
+       Дополнительные стили для партнёрской страницы.
+       ========================================= */
+
+    :root {
+      --bg: #f5fbf8;
+      --surface: rgba(255,255,255,.78);
+      --card: rgba(255,255,255,.92);
+      --text: #0b1220;
+      --muted: rgba(11,18,32,.70);
+      --muted2: rgba(11,18,32,.56);
+      --border: rgba(11,18,32,.10);
+      --border2: rgba(11,18,32,.08);
+      --shadow: 0 22px 70px rgba(11,18,32,.10);
+      --shadow2: 0 12px 34px rgba(11,18,32,.08);
+      --radius: 18px;
+      --radius2: 24px;
+
+      --accent: #1fb79f;
+      --accent2: #35c7b2;
+      --accent3: #8ae6da;
+
+      --max: 1120px;
+      --content: 920px;
+
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+      --step--1: clamp(0.82rem, 0.80rem + 0.10vw, 0.88rem);
+      --step-0:  clamp(0.95rem, 0.92rem + 0.20vw, 1.05rem);
+      --step-1:  clamp(1.08rem, 1.02rem + 0.40vw, 1.25rem);
+      --step-2:  clamp(1.28rem, 1.15rem + 0.70vw, 1.65rem);
+      --step-3:  clamp(1.55rem, 1.32rem + 1.10vw, 2.15rem);
+      --step-4:  clamp(2.05rem, 1.65rem + 1.80vw, 3.00rem);
+
+      --lh-tight: 1.12;
+      --lh: 1.62;
+      --lh-loose: 1.72;
+      --ls-tight: -0.02em;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(950px 560px at 14% -10%, rgba(31,183,159,.22), transparent 58%),
+        radial-gradient(950px 560px at 86% -10%, rgba(138,230,218,.18), transparent 58%),
+        radial-gradient(1100px 700px at 50% 120%, rgba(31,183,159,.10), transparent 62%),
+        var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: geometricPrecision;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    .content { max-width: var(--content); margin: 0 auto; }
+
+    /* Навигация */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(245,251,248,.84);
+      backdrop-filter: saturate(170%) blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 14px; padding: 12px 0;
+    }
+    .brand { display:flex; align-items:center; gap: 12px; }
+    .logo { height: 36px; width: auto; display:block; }
+    .menu {
+      display:flex; align-items:center; gap: 8px;
+      flex-wrap: wrap; justify-content:flex-end;
+      font-size: var(--step--1);
+      color: rgba(11,18,32,.78);
+    }
+    .menu a {
+      padding: 8px 10px; border-radius: 12px;
+      border: 1px solid transparent;
+    }
+    .menu a:hover {
+      background: rgba(11,18,32,.06);
+      border-color: rgba(11,18,32,.06);
+    }
+    .menu .pill{
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(31,183,159,.30);
+      background: rgba(31,183,159,.10);
+      color: rgba(11,18,32,.86);
+      font-weight: 700;
+    }
+    .menu .cta {
+      padding: 9px 12px; border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; font-weight: 700;
+      border: 1px solid rgba(31,183,159,.35);
+      box-shadow: 0 14px 28px rgba(31,183,159,.18);
+    }
+
+    /* Hero (центральный баннер) */
+    .hero {
+      padding: clamp(36px, 5vw, 64px) 0 22px;
+      text-align: center;
+    }
+    .kicker {
+      display:flex; gap: 10px; align-items:center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      max-width: var(--content);
+      font-size: var(--step--1);
+      color: rgba(11,18,32,.66);
+    }
+    .kicker-logo{
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+    h1 {
+      margin: 0;
+      font-size: var(--step-4);
+      line-height: var(--lh-tight);
+      letter-spacing: var(--ls-tight);
+    }
+    .sub {
+      margin: 12px auto 0;
+      max-width: var(--content);
+      text-align: center;
+      font-size: var(--step-1);
+      line-height: var(--lh-loose);
+      color: var(--muted);
+    }
+    .hero-actions {
+      margin-top: 14px;
+      display:flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 14px; border-radius: 999px;
+      border: 1px solid rgba(11,18,32,.12);
+      background: rgba(255,255,255,.86);
+      color: rgba(11,18,32,.86);
+      font-weight: 700;
+      font-size: var(--step--1);
+    }
+    .btn.primary {
+      border-color: rgba(31,183,159,.35);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(31,183,159,.18);
+    }
+
+    /* Разделы */
+    .section {
+      padding: clamp(20px, 2.5vw, 30px) 0;
+    }
+    /* Сетка и карточки */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.86));
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      padding: 18px 18px;
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: var(--step-0);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    .card p {
+      margin: 0;
+      font-size: var(--step--1);
+      line-height: var(--lh);
+      color: var(--muted);
+    }
+    /* Для результатов (What you can sell) */
+    .result-grid {
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .result-item { grid-column: span 6; }
+    @media (max-width: 980px) {
+      .result-item { grid-column: span 12; }
+    }
+    .result-item b {
+      display:block;
+      font-size: var(--step-0);
+      line-height: 1.25;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .result-item p {
+      margin: 0;
+      font-size: var(--step--1);
+      line-height: var(--lh);
+      color: var(--muted);
+    }
+    /* Заголовки секций и подзаголовки для партнёрских блоков */
+    .section-title {
+      margin: 0 0 12px;
+      font-size: var(--step-2);
+      line-height: var(--lh-tight);
+      letter-spacing: var(--ls-tight);
+    }
+    .section-sub {
+      margin: 0 0 18px;
+      font-size: var(--step--1);
+      line-height: var(--lh);
+      color: var(--muted);
+      max-width: var(--content);
+    }
+    /* Footer */
+    .footer {
+      margin-top: 30px;
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,.56);
+    }
+    .footer-inner {
+      display:flex; gap: 18px; justify-content: space-between; flex-wrap: wrap;
+      padding: 18px 0;
+      font-size: var(--step--1);
+      color: rgba(11,18,32,.72);
+      align-items: flex-start;
+    }
+    .footer-meta{
+      display:flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .footer-email{
+      font-weight: 700;
+    }
+    .footer-links{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, max-content));
+      gap: 6px 16px;
+      align-items: start;
+      justify-content: end;
+    }
+    .footer-logo{
+      height: 28px;
+      width: auto;
+      display:block;
+      margin-bottom: 8px;
+    }
+    .footer a:hover { text-decoration: underline; }
+
+    /* Платформы */
+    .platforms-block {
+      margin: 22px auto 0;
+      max-width: var(--content);
+      background: linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.70));
+      border: 1px solid var(--border2);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow2);
+      padding: 14px;
+    }
+    .platforms-block h2 {
+      margin: 0 0 4px;
+      text-align: center;
+      font-size: var(--step-1);
+      letter-spacing: -0.01em;
+      font-weight: 850;
+    }
+    .platforms-block p {
+      margin: 0 0 10px;
+      text-align: center;
+      font-size: var(--step--1);
+      line-height: var(--lh);
+      color: var(--muted);
+    }
+    .platforms {
+      display:flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding-top: 8px;
+    }
+    .platform {
+      height: 36px;
+      width: 80px;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .platform img {
+      max-height: 32px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Шапка сайта (header) из шаблона -->
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="/" aria-label="Oasis Defender">
+        <img class="logo" src="assets/logos/color.png" alt="Oasis Defender" />
+      </a>
+      <nav class="menu" aria-label="Навигация">
+        <a href="/">Главная</a>
+        <a href="/product.html">Продукт</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/partners.html" style="background: rgba(31,183,159,.10); color: rgba(11,18,32,.92); border-color: rgba(31,183,159,.20); font-weight: 700;">Партнёрам</a>
+        <a href="#contacts">Контакты</a>
+        <a class="pill" href="/login">Войти</a>
+        <a class="cta" href="mailto:info@oasisdefender.ru?subject=Oasis%20Defender%20—%20демо">Написать</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- Центральный баннер (hero) из шаблона -->
+    <section class="hero" aria-label="О продукте">
+      <div class="kicker">
+        <img class="kicker-logo" src="assets/logos/OD%20logo%20black.png" alt="Oasis Defender" />
+      </div>
+      <h1>Единая карта мультиоблачной инфраструктуры<br/>и рисков</h1>
+      <p class="sub">Agent-less, read-only анализ мультиоблачной и гибридной инфраструктуры как часть вашего продукта.</p>
+    </section>
+
+    <!-- Блоки партнёрской страницы -->
+
+    <section class="section" id="audience">
+      <div class="content">
+        <h2 class="section-title">Для кого эта модель</h2>
+        <p class="section-sub">Фокус страницы&nbsp;— операторы и провайдеры. Дополнительные форматы для MSSP описаны ниже.</p>
+        <div class="grid">
+          <div class="card" style="grid-column: span 4;">
+            <h3>Облачные провайдеры / IaaS / VPS</h3>
+            <p>Встраивание анализа инфраструктуры и рисков в облачную линейку и сервисный портфель.</p>
+          </div>
+          <div class="card" style="grid-column: span 4;">
+            <h3>Хостеры / ЦОД / Managed services</h3>
+            <p>Услуга контроля конфигураций, связности и дрейфа для клиентов, размещающих инфраструктуру.</p>
+          </div>
+          <div class="card" style="grid-column: span 4;">
+            <h3>Операторы связи с облаком</h3>
+            <p>Усиление облачных сервисов и проектов гибрида за счёт единой модели и контроля изменений.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="offering">
+      <div class="content">
+        <h2 class="section-title">Что вы сможете продавать клиентам на базе Oasis</h2>
+        <p class="section-sub">Примеры упаковываемых услуг/опций, которые оператор может включать в продуктовую линейку.</p>
+        <div class="result-grid">
+          <div class="result-item">
+            <b>Анализ инфраструктуры и связности</b>
+            <p>Карта ресурсов и фактических путей доступа между сегментами, аккаунтами и средами.</p>
+          </div>
+          <div class="result-item">
+            <b>Контроль изменений и дрейфа</b>
+            <p>Отслеживание изменений конфигураций и связности с выделением изменений, повышающих риск.</p>
+          </div>
+          <div class="result-item">
+            <b>Приоритизация исправлений</b>
+            <p>Список «что чинить первым» на основе фактической эксплуатируемости и путей доступа.</p>
+          </div>
+          <div class="result-item">
+            <b>Отчётность и выгрузки</b>
+            <p>Материалы для ИТ/ИБ и данные для инженерных задач: инвентарь, правила, находки, изменения.</p>
+          </div>
+          <div class="result-item">
+            <b>Подготовка к проверкам и аудитам</b>
+            <p>Фактическая картина инфраструктуры и рисков без ручной инвентаризации и сборов по командам.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="embedded">
+      <div class="content">
+        <h2 class="section-title">Embedded / White‑label</h2>
+        <p class="section-sub">Oasis Defender работает как часть вашего продукта. Вы владеете отношениями с клиентом; мы обеспечиваем движок анализа и поддержку.</p>
+        <div class="grid">
+          <div class="card" style="grid-column: span 6;">
+            <h3>Как это выглядит для клиента</h3>
+            <p>Варианты: white‑label, co‑branding или «powered by» (по договорённости). Доступ и отчётность интегрируются в ваш контур.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Границы ответственности</h3>
+            <p>Оператор: контракт, продажа, коммуникация, (опционально) первая линия. Oasis: движок анализа, обновления, методология, вторая линия/эскалации.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Развёртывание</h3>
+            <p>Варианты зависят от вашей модели: выделенный инстанс / контур оператора / другие варианты — фиксируются на этапе интеграции.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Подключение клиента</h3>
+            <p>Read‑only доступы к облачным аккаунтам/средам и сетевым компонентам, доступным через API. Список платформ и объём доступа уточняется под сценарий.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ops">
+      <div class="content">
+        <h2 class="section-title">Что получает оператор в эксплуатации</h2>
+        <p class="section-sub">Модель рассчитана на регулярный контроль, а не на разовый отчёт. Ниже — базовые элементы операционного контура.</p>
+        <div class="grid">
+          <div class="card" style="grid-column: span 6;">
+            <h3>Снимки состояния</h3>
+            <p>Регулярные снимки инфраструктуры и связности для сравнения и контроля изменений.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Дифф изменений</h3>
+            <p>Список изменений с фокусом на риск‑рост: новые публичные входы, расширенные правила, новые пути доступа.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Отчёты и выгрузки</h3>
+            <p>Материалы для ИТ/ИБ и данные для внутренних регламентов оператора и задач клиента.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Объяснимые приоритеты</h3>
+            <p>Аргументация «почему критично» на основе фактических путей доступа и эксплуатируемости.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="commercial">
+      <div class="content">
+        <h2 class="section-title">Коммерческая модель</h2>
+        <p class="section-sub">Фиксируем принципы и варианты расчёта. Конкретные условия зависят от модели и масштаба.</p>
+        <div class="grid">
+          <div class="card" style="grid-column: span 6;">
+            <h3>Формат расчёта</h3>
+            <p>Варианты: wholesale/скидка оператору или revenue share — в зависимости от white‑label/co‑branding и ответственности.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Единица тарификации</h3>
+            <p>Чаще всего: per tenant / per account / per environment. Выбор — под продуктовую упаковку оператора.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Выставление счёта</h3>
+            <p>Как правило, счёт клиенту выставляет оператор; Oasis работает как встроенный компонент.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Границы публичности</h3>
+            <p>Цифры и конкретика — в разговоре. На странице остаётся только модель и принципы.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="support">
+      <div class="content">
+        <h2 class="section-title">Поддержка и регламент взаимодействия</h2>
+        <p class="section-sub">Цель — предсказуемая эксплуатация и понятные эскалации в партнёрском контуре.</p>
+        <div class="grid">
+          <div class="card" style="grid-column: span 6;">
+            <h3>Каналы и эскалации</h3>
+            <p>Единый канал партнёрской поддержки + правила эскалации. Состав участников и регламент согласуются на старте.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Согласованный SLA</h3>
+            <p>Уровни реакции и окна сопровождения зависят от формата развёртывания и ответственности оператора.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Совместимость коннекторов</h3>
+            <p>Обновления и матрица совместимости ведутся централизованно; критичные изменения согласуются с партнёром.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Операционные изменения</h3>
+            <p>Изменения в партнёрском контуре оформляются как регламент (кто инициирует, кто подтверждает, кто исполняет).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="co-delivery">
+      <div class="content">
+        <h2 class="section-title">Co‑delivery для MSSP/интеграторов</h2>
+        <p class="section-sub">Партнёр ведёт проект и коммуникацию; Oasis обеспечивает движок анализа и методическую поддержку.</p>
+        <div class="grid">
+          <div class="card" style="grid-column: span 6;">
+            <h3>Роли</h3>
+            <p>Партнёр: delivery и итоговые материалы. Oasis: построение модели/анализа и поддержка по вопросам данных и интерпретации.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Результаты</h3>
+            <p>Карта, риски, изменения и выгрузки используются в отчётах партнёра и в процессе улучшений у клиента.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Эскалации</h3>
+            <p>Партнёр — первая линия для клиента, Oasis — вторая линия по платформам, коннекторам и модели.</p>
+          </div>
+          <div class="card" style="grid-column: span 6;">
+            <h3>Границы</h3>
+            <p>Страница не углубляется в MSSP‑ценности; это отдельный сегмент, который будем уточнять по мере общения.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="content">
+        <h2 class="section-title">FAQ для партнёров</h2>
+        <p class="section-sub">Только вопросы, которые обычно блокируют решение о партнёрстве.</p>
+        <div class="grid">
+          <div class="card" style="grid-column: span 12;">
+            <h3>Где размещается решение и где хранятся данные?</h3>
+            <p>Зависит от модели развёртывания и требований партнёра. Конкретный вариант фиксируется на этапе интеграции.</p>
+          </div>
+          <div class="card" style="grid-column: span 12;">
+            <h3>Какие доступы требуются для подключения клиента?</h3>
+            <p>Read‑only доступы к облачным платформам/средам и сетевым компонентам, доступным через API. Детализация — в чеклисте подключения.</p>
+          </div>
+          <div class="card" style="grid-column: span 12;">
+            <h3>Как обеспечивается изоляция между клиентами?</h3>
+            <p>Механизм изоляции зависит от формата развёртывания. В embedded‑модели это часть архитектуры партнёрского контура.</p>
+          </div>
+          <div class="card" style="grid-column: span 12;">
+            <h3>Как выглядит white‑label/co‑branding на практике?</h3>
+            <p>Варианты брендинга и глубина интеграции согласуются в рамках embedded‑модели.</p>
+          </div>
+          <div class="card" style="grid-column: span 12;">
+            <h3>Что входит в поддержку?</h3>
+            <p>Поддержка коннекторов, обновления, эскалации по анализу и совместимости. SLA и регламент зависят от модели.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Поддерживаемые платформы (из шаблона) -->
+    <section class="section" aria-label="Поддерживаемые платформы">
+      <div class="platforms-block" aria-label="Поддерживаемые платформы">
+        <h2>Поддерживаемые платформы</h2>
+        <p>Мультиоблачные и гибридные архитектуры в единой модели.</p>
+        <div class="platforms" aria-label="Список платформ">
+          <div class="platform">
+            <img src="assets/logos/vmware.svg" alt="VMware" loading="lazy" />
+          </div>
+          <div class="platform">
+            <img src="assets/logos/cloudstack.jpg" alt="Apache CloudStack" loading="lazy" />
+          </div>
+          <div class="platform">
+            <img src="assets/logos/openstack.svg" alt="OpenStack" loading="lazy" />
+          </div>
+          <div class="platform">
+            <img src="assets/logos/yandex-cloud.svg" alt="Yandex Cloud" loading="lazy" />
+          </div>
+          <div class="platform">
+            <img src="assets/logos/aws.svg" alt="AWS" loading="lazy" />
+          </div>
+          <div class="platform">
+            <img src="assets/logos/azure.svg" alt="Microsoft Azure" loading="lazy" />
+          </div>
+          <div class="platform">
+            <img src="assets/logos/digitalocean.svg" alt="DigitalOcean" loading="lazy" />
+          </div>
+          <div class="platform">
+            <img src="assets/logos/huawei.svg" alt="Huawei" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Футер (из шаблона) -->
+  <footer class="footer" id="contacts">
+    <div class="wrap footer-inner">
+      <div class="footer-meta">
+        <img class="footer-logo" src="assets/logos/OD%20logo%20black.png" alt="Oasis Defender" />
+        <a class="footer-email" href="mailto:info@oasisdefender.ru">info@oasisdefender.ru</a>
+      </div>
+      <div class="links footer-links" aria-label="Ссылки">
+        <a href="/">Главная</a>
+        <a href="/product.html">Продукт</a>
+        <a href="/faq.html">FAQ</a>
+        <a href="/partners.html">Партнёрам</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
