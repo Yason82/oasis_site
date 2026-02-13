@@ -1,0 +1,1992 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fatmetal — Мои услуги (layout + прототип выдачи)</title>
+
+  <!-- Tailwind via CDN (для быстрого просмотра прототипа) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+    /* Подогнано под PDF-прототип из Figma */
+    :root{
+      --fm-purple:#5B2B6B;
+      --fm-soft:#F4F2F6;
+      --fm-sidebar:#F3F3F3;
+      --fm-border:#E7E7E7;
+      --fm-card:#F7F7F7;
+      --fm-card-border:#EFEFEF;
+      --fm-text:#111827;
+    }
+    html,body{ background:#fff; color:var(--fm-text); }
+    /* В PDF карточки визуально "плашками" на светло-сером фоне */
+    .fm-card{
+      background:var(--fm-card);
+      border:1px solid var(--fm-card-border);
+      border-radius:14px;
+    }
+    .fm-chip{
+      border:1px solid var(--fm-border);
+      background:#fff;
+      border-radius:10px;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <!-- Top header -->
+  <header class="h-14 text-white flex items-center" style="background:var(--fm-purple);">
+    <div class="w-full flex items-center justify-between px-4">
+      <!-- Left brand -->
+      <div class="flex items-center gap-3">
+        <div class="h-9 w-9 rounded-full bg-white/15 flex items-center justify-center font-semibold">F</div>
+        <div class="font-semibold tracking-wide">FATMETAL</div>
+      </div>
+
+      <!-- Right controls -->
+      <div class="flex items-center gap-5 text-sm">
+        <div class="hidden md:flex items-center gap-2">
+          <span class="opacity-90">💰</span>
+          <span class="font-medium">460 ₽</span>
+          <span class="opacity-80">▾</span>
+        </div>
+        <div class="hidden md:flex items-center gap-2">
+          <span class="opacity-90">🔔</span>
+          <span class="opacity-95">Уведомления</span>
+          <span class="opacity-80">▾</span>
+        </div>
+        <div class="hidden md:flex items-center gap-2">
+          <span class="opacity-90">❓</span>
+          <span class="opacity-95">Помощь</span>
+          <span class="opacity-80">▾</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-full bg-white/15 flex items-center justify-center font-semibold">A</div>
+          <div class="hidden sm:block leading-tight">
+            <div class="text-xs opacity-90">Аккаунт: 27932-460</div>
+            <div class="text-xs opacity-90">prokopovich@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main layout -->
+  <div class="flex min-h-[calc(100vh-56px)]">
+    <!-- Sidebar -->
+    <aside class="w-64 border-r" style="background:var(--fm-sidebar); border-color:var(--fm-border);">
+      <nav class="py-4">
+        <div class="px-4 pb-2 text-xs text-slate-500"> </div>
+
+        <a class="block px-4 py-2 text-sm text-slate-800 hover:bg-white/50" href="#">Выделенные серверы</a>
+        <a class="block px-4 py-2 text-sm text-slate-800 hover:bg-white/50" href="#">Виртуальные серверы</a>
+
+        <div class="my-3 border-t" style="border-color:var(--fm-border);"></div>
+
+        <a class="block px-4 py-2 text-sm font-medium text-slate-900" style="background:#E9E3EC" href="#">Мои услуги</a>
+        <a class="flex items-center justify-between px-4 py-2 text-sm text-slate-800 hover:bg-white/50" href="#">
+          <span>Резервные копии</span>
+          <span class="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[11px] text-amber-800">в разработке</span>
+        </a>
+        <a class="flex items-center justify-between px-4 py-2 text-sm text-slate-800 hover:bg-white/50" href="#">
+          <span>SSH-ключи</span>
+          <span class="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[11px] text-amber-800">в разработке</span>
+        </a>
+        <a class="flex items-center justify-between px-4 py-2 text-sm text-slate-800 hover:bg-white/50" href="#">
+          <span>API</span>
+          <span class="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[11px] text-amber-800">в разработке</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Content -->
+    <main class="flex-1">
+      <div class="px-10 py-6">
+        <div class="flex flex-col gap-4">
+          <!-- Title -->
+          <div>
+            <h1 class="text-2xl font-medium text-slate-900">Список активных услуг</h1>
+            <p class="mt-1 text-sm text-slate-600">
+              Прототип: один список без вкладок. У каждой услуги — доп.услуги с отдельными датами/статусами/ценой и итог по услуге.
+            </p>
+          </div>
+
+          <!-- Controls row -->
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+            <div class="flex flex-col sm:flex-row gap-2 sm:items-center">
+              <input id="search"
+                placeholder="Поиск: IP, тариф, тип услуги, доп.услуга…"
+                class="w-full sm:w-[420px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-200"
+              />
+              <div class="flex gap-2">
+                <button class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50">Экспорт</button>
+                <button class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50">Пополнить</button>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="hidden md:flex items-center gap-2 rounded-full px-3 py-2 text-sm"
+                   style="background:var(--fm-soft); border:1px solid var(--fm-border);">
+                <span class="text-slate-600">Сумма активных услуг:</span>
+                <span class="font-semibold text-slate-900" id="totalMonthlyAll">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alerts -->
+          <div id="alerts" class="hidden rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800"></div>
+
+          <!-- Groups -->
+          <section id="groups" class="flex flex-col gap-6"></section>
+
+          <div id="empty" class="hidden rounded-2xl border border-slate-200 bg-slate-50 p-6 text-slate-700">
+            Ничего не найдено по запросу. Попробуйте другой фильтр.
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // --- Demo data (заменить на API) ---
+    const services = [
+  {
+    "id": "svc-1",
+    "type": "dedicated",
+    "name": "DEDIC Ryzen 9 / 128 GB / 2×2TB SSD #01",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "01.11.2025",
+    "basePriceRubMonthly": 16900,
+    "addons": [
+      {
+        "id": "a1",
+        "title": "IPMI / KVM",
+        "description": "Удалённая консоль",
+        "status": "active",
+        "renewAt": "01.11.2025",
+        "priceRubMonthly": 350,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-2",
+    "type": "vps",
+    "name": "CPU6-RAM16-DISK240 #02",
+    "status": "active",
+    "primaryIp": "79.133.172.24",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "13.11.2025",
+    "basePriceRubMonthly": 3890,
+    "addons": [
+      {
+        "id": "a2",
+        "title": "IPMI / KVM",
+        "description": "Удалённая консоль",
+        "status": "insufficient_funds",
+        "renewAt": "13.11.2025",
+        "priceRubMonthly": 350,
+        "meta": []
+      },
+      {
+        "id": "a3",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "active",
+        "renewAt": "13.11.2025",
+        "priceRubMonthly": 490,
+        "meta": []
+      },
+      {
+        "id": "a4",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "insufficient_funds",
+        "renewAt": "13.11.2025",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-3",
+    "type": "vps",
+    "name": "CPU6-RAM16-DISK240 #03",
+    "status": "active",
+    "primaryIp": "79.133.173.31",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "25.11.2025",
+    "basePriceRubMonthly": 3890,
+    "addons": [
+      {
+        "id": "a5",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "active",
+        "renewAt": "25.11.2025",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-4",
+    "type": "vps",
+    "name": "CPU8-RAM32-DISK480 #04",
+    "status": "active",
+    "primaryIp": "79.133.174.38",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "25.11.2025",
+    "basePriceRubMonthly": 6990,
+    "addons": []
+  },
+  {
+    "id": "svc-5",
+    "type": "colocation",
+    "name": "Стойка 42U / 8 IP / 3 кВт #05",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "07.12.2025",
+    "basePriceRubMonthly": 24900,
+    "addons": [
+      {
+        "id": "a6",
+        "title": "IPMI / KVM",
+        "description": "Удалённая консоль",
+        "status": "active",
+        "renewAt": "07.12.2025",
+        "priceRubMonthly": 350,
+        "meta": []
+      },
+      {
+        "id": "a7",
+        "title": "Резервное копирование",
+        "description": "Полная копия root volume",
+        "status": "insufficient_funds",
+        "renewAt": "07.12.2025",
+        "priceRubMonthly": 390,
+        "meta": [
+          {
+            "k": "Хранение",
+            "v": "7 дней"
+          }
+        ]
+      },
+      {
+        "id": "a8",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "active",
+        "renewAt": "07.12.2025",
+        "priceRubMonthly": 490,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-6",
+    "type": "vps",
+    "name": "CPU6-RAM16-DISK240 #06",
+    "status": "suspended",
+    "primaryIp": "79.133.176.52",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "19.12.2025",
+    "basePriceRubMonthly": 3890,
+    "addons": []
+  },
+  {
+    "id": "svc-7",
+    "type": "dedicated",
+    "name": "DEDIC i7 / 64 GB / 2×1TB SSD #07",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "31.12.2025",
+    "basePriceRubMonthly": 9900,
+    "addons": [
+      {
+        "id": "a9",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "active",
+        "renewAt": "31.12.2025",
+        "priceRubMonthly": 490,
+        "meta": []
+      },
+      {
+        "id": "a10",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "insufficient_funds",
+        "renewAt": "31.12.2025",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-8",
+    "type": "vps",
+    "name": "CPU8-RAM32-DISK480 #08",
+    "status": "active",
+    "primaryIp": "79.133.178.66",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "31.12.2025",
+    "basePriceRubMonthly": 6990,
+    "addons": [
+      {
+        "id": "a11",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "insufficient_funds",
+        "renewAt": "31.12.2025",
+        "priceRubMonthly": 490,
+        "meta": []
+      },
+      {
+        "id": "a12",
+        "title": "IPMI / KVM",
+        "description": "Удалённая консоль",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 350,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-9",
+    "type": "dedicated",
+    "name": "DEDIC EPYC / 256 GB / 4×2TB SSD #09",
+    "status": "suspended",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "12.01.2026",
+    "basePriceRubMonthly": 29900,
+    "addons": [
+      {
+        "id": "a13",
+        "title": "Резервное копирование",
+        "description": "Полная копия root volume",
+        "status": "active",
+        "renewAt": "12.01.2026",
+        "priceRubMonthly": 390,
+        "meta": [
+          {
+            "k": "Хранение",
+            "v": "7 дней"
+          }
+        ]
+      },
+      {
+        "id": "a14",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-10",
+    "type": "vps",
+    "name": "CPU4-RAM8-DISK120 #10",
+    "status": "suspended",
+    "primaryIp": "79.133.180.80",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "24.01.2026",
+    "basePriceRubMonthly": 2190,
+    "addons": [
+      {
+        "id": "a15",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "active",
+        "renewAt": "24.01.2026",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      },
+      {
+        "id": "a16",
+        "title": "Резервное копирование",
+        "description": "Полная копия root volume",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 390,
+        "meta": [
+          {
+            "k": "Хранение",
+            "v": "7 дней"
+          }
+        ]
+      },
+      {
+        "id": "a17",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-11",
+    "type": "vps",
+    "name": "CPU8-RAM32-DISK480 #11",
+    "status": "active",
+    "primaryIp": "79.133.181.87",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "05.02.2026",
+    "basePriceRubMonthly": 6990,
+    "addons": []
+  },
+  {
+    "id": "svc-12",
+    "type": "dedicated",
+    "name": "DEDIC Ryzen 9 / 128 GB / 2×2TB SSD #12",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "05.02.2026",
+    "basePriceRubMonthly": 16900,
+    "addons": [
+      {
+        "id": "a18",
+        "title": "Резервное копирование",
+        "description": "Полная копия root volume",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 390,
+        "meta": [
+          {
+            "k": "Хранение",
+            "v": "7 дней"
+          }
+        ]
+      },
+      {
+        "id": "a19",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "active",
+        "renewAt": "05.02.2026",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-13",
+    "type": "dedicated",
+    "name": "DEDIC i7 / 64 GB / 2×1TB SSD #13",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "17.02.2026",
+    "basePriceRubMonthly": 9900,
+    "addons": [
+      {
+        "id": "a20",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "active",
+        "renewAt": "17.02.2026",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      },
+      {
+        "id": "a21",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-14",
+    "type": "vps",
+    "name": "CPU6-RAM16-DISK240 #14",
+    "status": "active",
+    "primaryIp": "79.133.184.108",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "01.03.2026",
+    "basePriceRubMonthly": 3890,
+    "addons": [
+      {
+        "id": "a22",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "active",
+        "renewAt": "01.03.2026",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      },
+      {
+        "id": "a23",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "insufficient_funds",
+        "renewAt": "01.03.2026",
+        "priceRubMonthly": 490,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-15",
+    "type": "dedicated",
+    "name": "DEDIC Ryzen 9 / 128 GB / 2×2TB SSD #15",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "13.03.2026",
+    "basePriceRubMonthly": 16900,
+    "addons": [
+      {
+        "id": "a24",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-16",
+    "type": "dedicated",
+    "name": "DEDIC EPYC / 256 GB / 4×2TB SSD #16",
+    "status": "suspended",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "13.03.2026",
+    "basePriceRubMonthly": 29900,
+    "addons": [
+      {
+        "id": "a25",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-17",
+    "type": "colocation",
+    "name": "Стойка 20U / 4 IP / 2 кВт #17",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "25.03.2026",
+    "basePriceRubMonthly": 13900,
+    "addons": [
+      {
+        "id": "a26",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "active",
+        "renewAt": "25.03.2026",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-18",
+    "type": "colocation",
+    "name": "Стойка 10U / 2 IP / 1 кВт #18",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "06.04.2026",
+    "basePriceRubMonthly": 7900,
+    "addons": [
+      {
+        "id": "a27",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "active",
+        "renewAt": "06.04.2026",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-19",
+    "type": "vps",
+    "name": "CPU8-RAM32-DISK480 #19",
+    "status": "active",
+    "primaryIp": "79.133.189.143",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "18.04.2026",
+    "basePriceRubMonthly": 6990,
+    "addons": [
+      {
+        "id": "a28",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "active",
+        "renewAt": "18.04.2026",
+        "priceRubMonthly": 490,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-20",
+    "type": "vps",
+    "name": "CPU8-RAM32-DISK480 #20",
+    "status": "active",
+    "primaryIp": "79.133.190.150",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "18.04.2026",
+    "basePriceRubMonthly": 6990,
+    "addons": []
+  },
+  {
+    "id": "svc-21",
+    "type": "vps",
+    "name": "CPU4-RAM8-DISK120 #21",
+    "status": "active",
+    "primaryIp": "79.133.191.157",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "30.04.2026",
+    "basePriceRubMonthly": 2190,
+    "addons": [
+      {
+        "id": "a29",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "insufficient_funds",
+        "renewAt": "30.04.2026",
+        "priceRubMonthly": 490,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-22",
+    "type": "dedicated",
+    "name": "DEDIC Ryzen 9 / 128 GB / 2×2TB SSD #22",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "12.05.2026",
+    "basePriceRubMonthly": 16900,
+    "addons": [
+      {
+        "id": "a30",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-23",
+    "type": "vps",
+    "name": "CPU6-RAM16-DISK240 #23",
+    "status": "active",
+    "primaryIp": "79.133.193.171",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "24.05.2026",
+    "basePriceRubMonthly": 3890,
+    "addons": [
+      {
+        "id": "a31",
+        "title": "Резервное копирование",
+        "description": "Полная копия root volume",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 390,
+        "meta": [
+          {
+            "k": "Хранение",
+            "v": "7 дней"
+          }
+        ]
+      },
+      {
+        "id": "a32",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "insufficient_funds",
+        "renewAt": "24.05.2026",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-24",
+    "type": "dedicated",
+    "name": "DEDIC EPYC / 256 GB / 4×2TB SSD #24",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "24.05.2026",
+    "basePriceRubMonthly": 29900,
+    "addons": [
+      {
+        "id": "a33",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "active",
+        "renewAt": "24.05.2026",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      },
+      {
+        "id": "a34",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "active",
+        "renewAt": "24.05.2026",
+        "priceRubMonthly": 490,
+        "meta": []
+      },
+      {
+        "id": "a35",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "active",
+        "renewAt": "24.05.2026",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-25",
+    "type": "vps",
+    "name": "CPU8-RAM32-DISK480 #25",
+    "status": "active",
+    "primaryIp": "79.133.195.185",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "05.06.2026",
+    "basePriceRubMonthly": 6990,
+    "addons": [
+      {
+        "id": "a36",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "active",
+        "renewAt": "05.06.2026",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      },
+      {
+        "id": "a37",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-26",
+    "type": "dedicated",
+    "name": "DEDIC i7 / 64 GB / 2×1TB SSD #26",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "17.06.2026",
+    "basePriceRubMonthly": 9900,
+    "addons": []
+  },
+  {
+    "id": "svc-27",
+    "type": "dedicated",
+    "name": "DEDIC Ryzen 9 / 128 GB / 2×2TB SSD #27",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "29.06.2026",
+    "basePriceRubMonthly": 16900,
+    "addons": [
+      {
+        "id": "a38",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "insufficient_funds",
+        "renewAt": "29.06.2026",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      },
+      {
+        "id": "a39",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 490,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-28",
+    "type": "vps",
+    "name": "CPU6-RAM16-DISK240 #28",
+    "status": "active",
+    "primaryIp": "79.133.198.206",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "29.06.2026",
+    "basePriceRubMonthly": 3890,
+    "addons": []
+  },
+  {
+    "id": "svc-29",
+    "type": "vps",
+    "name": "CPU1-RAM2-DISK30 #29",
+    "status": "active",
+    "primaryIp": "79.133.199.213",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "11.07.2026",
+    "basePriceRubMonthly": 690,
+    "addons": []
+  },
+  {
+    "id": "svc-30",
+    "type": "dedicated",
+    "name": "DEDIC EPYC / 256 GB / 4×2TB SSD #30",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "23.07.2026",
+    "basePriceRubMonthly": 29900,
+    "addons": [
+      {
+        "id": "a40",
+        "title": "Резервное копирование",
+        "description": "Полная копия root volume",
+        "status": "active",
+        "renewAt": "23.07.2026",
+        "priceRubMonthly": 390,
+        "meta": [
+          {
+            "k": "Хранение",
+            "v": "7 дней"
+          }
+        ]
+      },
+      {
+        "id": "a41",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-31",
+    "type": "vps",
+    "name": "CPU8-RAM32-DISK480 #31",
+    "status": "suspended",
+    "primaryIp": "79.133.201.227",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "04.08.2026",
+    "basePriceRubMonthly": 6990,
+    "addons": [
+      {
+        "id": "a42",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "active",
+        "renewAt": "04.08.2026",
+        "priceRubMonthly": 490,
+        "meta": []
+      },
+      {
+        "id": "a43",
+        "title": "Резервное копирование",
+        "description": "Полная копия root volume",
+        "status": "insufficient_funds",
+        "renewAt": "04.08.2026",
+        "priceRubMonthly": 390,
+        "meta": [
+          {
+            "k": "Хранение",
+            "v": "7 дней"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-32",
+    "type": "colocation",
+    "name": "Стойка 42U / 8 IP / 3 кВт #32",
+    "status": "suspended",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "04.08.2026",
+    "basePriceRubMonthly": 24900,
+    "addons": [
+      {
+        "id": "a44",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      },
+      {
+        "id": "a45",
+        "title": "Резервное копирование",
+        "description": "Полная копия root volume",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 390,
+        "meta": [
+          {
+            "k": "Хранение",
+            "v": "7 дней"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-33",
+    "type": "vps",
+    "name": "CPU1-RAM2-DISK30 #33",
+    "status": "active",
+    "primaryIp": "79.133.203.241",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "16.08.2026",
+    "basePriceRubMonthly": 690,
+    "addons": [
+      {
+        "id": "a46",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "active",
+        "renewAt": "16.08.2026",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-34",
+    "type": "vps",
+    "name": "CPU4-RAM8-DISK120 #34",
+    "status": "active",
+    "primaryIp": "79.133.204.248",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "28.08.2026",
+    "basePriceRubMonthly": 2190,
+    "addons": [
+      {
+        "id": "a47",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "active",
+        "renewAt": "28.08.2026",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      },
+      {
+        "id": "a48",
+        "title": "IPMI / KVM",
+        "description": "Удалённая консоль",
+        "status": "active",
+        "renewAt": "28.08.2026",
+        "priceRubMonthly": 350,
+        "meta": []
+      },
+      {
+        "id": "a49",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "active",
+        "renewAt": "28.08.2026",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-35",
+    "type": "dedicated",
+    "name": "DEDIC EPYC / 256 GB / 4×2TB SSD #35",
+    "status": "suspended",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "09.09.2026",
+    "basePriceRubMonthly": 29900,
+    "addons": [
+      {
+        "id": "a50",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "insufficient_funds",
+        "renewAt": "09.09.2026",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      },
+      {
+        "id": "a51",
+        "title": "Резервное копирование",
+        "description": "Полная копия root volume",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 390,
+        "meta": [
+          {
+            "k": "Хранение",
+            "v": "7 дней"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-36",
+    "type": "dedicated",
+    "name": "DEDIC i7 / 64 GB / 2×1TB SSD #36",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "09.09.2026",
+    "basePriceRubMonthly": 9900,
+    "addons": []
+  },
+  {
+    "id": "svc-37",
+    "type": "vps",
+    "name": "CPU1-RAM2-DISK30 #37",
+    "status": "active",
+    "primaryIp": "79.133.207.29",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "21.09.2026",
+    "basePriceRubMonthly": 690,
+    "addons": [
+      {
+        "id": "a52",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "active",
+        "renewAt": "21.09.2026",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-38",
+    "type": "dedicated",
+    "name": "DEDIC Ryzen 9 / 128 GB / 2×2TB SSD #38",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "03.10.2026",
+    "basePriceRubMonthly": 16900,
+    "addons": [
+      {
+        "id": "a53",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      },
+      {
+        "id": "a54",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "active",
+        "renewAt": "03.10.2026",
+        "priceRubMonthly": 490,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-39",
+    "type": "colocation",
+    "name": "Стойка 20U / 4 IP / 2 кВт #39",
+    "status": "suspended",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "15.10.2026",
+    "basePriceRubMonthly": 13900,
+    "addons": [
+      {
+        "id": "a55",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 490,
+        "meta": []
+      },
+      {
+        "id": "a56",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-40",
+    "type": "vps",
+    "name": "CPU2-RAM4-DISK50 #40",
+    "status": "suspended",
+    "primaryIp": "79.133.210.50",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "15.10.2026",
+    "basePriceRubMonthly": 1290,
+    "addons": [
+      {
+        "id": "a57",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "insufficient_funds",
+        "renewAt": "15.10.2026",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      },
+      {
+        "id": "a58",
+        "title": "IPMI / KVM",
+        "description": "Удалённая консоль",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 350,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-41",
+    "type": "vps",
+    "name": "CPU1-RAM2-DISK30 #41",
+    "status": "active",
+    "primaryIp": "79.133.211.57",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "27.10.2026",
+    "basePriceRubMonthly": 690,
+    "addons": [
+      {
+        "id": "a59",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "active",
+        "renewAt": "27.10.2026",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-42",
+    "type": "vps",
+    "name": "CPU6-RAM16-DISK240 #42",
+    "status": "active",
+    "primaryIp": "79.133.212.64",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "08.11.2026",
+    "basePriceRubMonthly": 3890,
+    "addons": [
+      {
+        "id": "a60",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      },
+      {
+        "id": "a61",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "active",
+        "renewAt": "08.11.2026",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      },
+      {
+        "id": "a62",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "insufficient_funds",
+        "renewAt": "08.11.2026",
+        "priceRubMonthly": 490,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-43",
+    "type": "vps",
+    "name": "CPU4-RAM8-DISK120 #43",
+    "status": "suspended",
+    "primaryIp": "79.133.213.71",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "20.11.2026",
+    "basePriceRubMonthly": 2190,
+    "addons": []
+  },
+  {
+    "id": "svc-44",
+    "type": "dedicated",
+    "name": "DEDIC Ryzen 9 / 128 GB / 2×2TB SSD #44",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "20.11.2026",
+    "basePriceRubMonthly": 16900,
+    "addons": [
+      {
+        "id": "a63",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      },
+      {
+        "id": "a64",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 490,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-45",
+    "type": "colocation",
+    "name": "Стойка 20U / 4 IP / 2 кВт #45",
+    "status": "active",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "02.12.2026",
+    "basePriceRubMonthly": 13900,
+    "addons": [
+      {
+        "id": "a65",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "active",
+        "renewAt": "02.12.2026",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-46",
+    "type": "colocation",
+    "name": "Стойка 20U / 4 IP / 2 кВт #46",
+    "status": "suspended",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "14.12.2026",
+    "basePriceRubMonthly": 13900,
+    "addons": [
+      {
+        "id": "a66",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 490,
+        "meta": []
+      },
+      {
+        "id": "a67",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "paused",
+        "renewAt": "—",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-47",
+    "type": "dedicated",
+    "name": "DEDIC Ryzen 9 / 128 GB / 2×2TB SSD #47",
+    "status": "suspended",
+    "primaryIp": "—",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "26.12.2026",
+    "basePriceRubMonthly": 16900,
+    "addons": [
+      {
+        "id": "a68",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "active",
+        "renewAt": "26.12.2026",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      },
+      {
+        "id": "a69",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "svc-48",
+    "type": "vps",
+    "name": "CPU4-RAM8-DISK120 #48",
+    "status": "active",
+    "primaryIp": "79.133.218.106",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "26.12.2026",
+    "basePriceRubMonthly": 2190,
+    "addons": [
+      {
+        "id": "a70",
+        "title": "Доп. IP-адрес",
+        "description": "IPv4",
+        "status": "active",
+        "renewAt": "26.12.2026",
+        "priceRubMonthly": 150,
+        "meta": [
+          {
+            "k": "Кол-во",
+            "v": "1"
+          }
+        ]
+      },
+      {
+        "id": "a71",
+        "title": "Снимки (snapshots)",
+        "description": "Ручные снимки диска",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 190,
+        "meta": [
+          {
+            "k": "Лимит",
+            "v": "10 шт"
+          }
+        ]
+      },
+      {
+        "id": "a72",
+        "title": "Расширенная поддержка",
+        "description": "Приоритет 24/7",
+        "status": "active",
+        "renewAt": "26.12.2026",
+        "priceRubMonthly": 490,
+        "meta": []
+      }
+    ]
+  },
+  {
+    "id": "svc-49",
+    "type": "vps",
+    "name": "CPU8-RAM32-DISK480 #49",
+    "status": "active",
+    "primaryIp": "79.133.219.113",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "07.01.2027",
+    "basePriceRubMonthly": 6990,
+    "addons": []
+  },
+  {
+    "id": "svc-50",
+    "type": "vps",
+    "name": "CPU2-RAM4-DISK50 #50",
+    "status": "active",
+    "primaryIp": "79.133.170.120",
+    "location": "Рязань, ЦОД Fatmetal",
+    "paidUntil": "19.01.2027",
+    "basePriceRubMonthly": 1290,
+    "addons": [
+      {
+        "id": "a73",
+        "title": "Канал 1 Гбит/с",
+        "description": "Порт 1G, безлимит",
+        "status": "inactive",
+        "renewAt": "—",
+        "priceRubMonthly": 600,
+        "meta": [
+          {
+            "k": "Трафик",
+            "v": "безлимит"
+          }
+        ]
+      }
+    ]
+  }
+];
+const typeTitles = {
+      vps: "Виртуальные серверы",
+      dedicated: "Выделенные серверы",
+      colocation: "Размещение (CoLocation)",
+      network: "Сети и каналы",
+      other: "Прочие услуги",
+    };
+
+    const typeOrder = ["vps","dedicated","colocation","network","other"];
+
+    
+    // per-group collapsing (показывать первые N услуг в группе)
+    const DEFAULT_GROUP_VISIBLE = 5;
+    const groupVisibleCount = Object.create(null); // type -> number
+function rub(n) {
+      const s = String(Math.round(n));
+      return s.replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽/мес";
+    }
+
+    function serviceStatusLabel(s) {
+      switch (s) {
+        case "active": return "Активно";
+        case "suspended": return "Приостановлено";
+        case "pending": return "Создаётся";
+        case "terminated": return "Завершено";
+        default: return "—";
+      }
+    }
+
+    function pillClass(status) {
+      const base = "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1";
+      switch (status) {
+        case "active": return base + " bg-emerald-50 text-emerald-700 ring-emerald-200";
+        case "suspended": return base + " bg-amber-50 text-amber-700 ring-amber-200";
+        case "pending": return base + " bg-slate-50 text-slate-700 ring-slate-200";
+        case "terminated": return base + " bg-rose-50 text-rose-700 ring-rose-200";
+        default: return base + " bg-slate-50 text-slate-700 ring-slate-200";
+      }
+    }
+
+    function addonStatusLabel(s) {
+      switch (s) {
+        case "active": return "Активна";
+        case "inactive": return "Неактивна";
+        case "paused": return "Пауза";
+        case "insufficient_funds": return "Не хватает денег";
+        default: return "—";
+      }
+    }
+
+    function addonPillClass(s) {
+      const base = "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ring-1";
+      switch (s) {
+        case "active": return base + " bg-emerald-50 text-emerald-700 ring-emerald-200";
+        case "inactive": return base + " bg-slate-50 text-slate-700 ring-slate-200";
+        case "paused": return base + " bg-amber-50 text-amber-700 ring-amber-200";
+        case "insufficient_funds": return base + " bg-rose-50 text-rose-700 ring-rose-200";
+        default: return base + " bg-slate-50 text-slate-700 ring-slate-200";
+      }
+    }
+
+    function computeTotal(service) {
+      const addonsSum = service.addons.reduce((acc, a) => acc + (a.status === "active" ? a.priceRubMonthly : 0), 0);
+      return { addonsSum, total: service.basePriceRubMonthly + addonsSum };
+    }
+
+    function groupServices(list) {
+      const map = new Map();
+      for (const s of list) {
+        if (!map.has(s.type)) map.set(s.type, []);
+        map.get(s.type).push(s);
+      }
+      return Array.from(map.entries()).sort((a,b) => typeOrder.indexOf(a[0]) - typeOrder.indexOf(b[0]));
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function render() {
+      const q = document.getElementById("search").value.trim().toLowerCase();
+      const filtered = !q ? services : services.filter(s => {
+        const hay = [
+          s.name, s.type, s.primaryIp||"", s.location||"", s.paidUntil,
+          ...s.addons.map(a => a.title),
+        ].join(" ").toLowerCase();
+        return hay.includes(q);
+      });
+
+      // totals
+      const totalMonthlyAll = filtered.reduce((acc, s) => acc + computeTotal(s).total, 0);
+      document.getElementById("totalMonthlyAll").textContent = rub(totalMonthlyAll);
+
+      // alerts
+      let insufficient = 0;
+      let suspended = 0;
+      for (const s of filtered) {
+        if (s.status === "suspended") suspended++;
+        for (const a of s.addons) if (a.status === "insufficient_funds") insufficient++;
+      }
+      const alerts = document.getElementById("alerts");
+      if (insufficient || suspended) {
+        alerts.classList.remove("hidden");
+        alerts.innerHTML = `
+          ${insufficient ? `<div>Есть доп.услуги с проблемой продления (не хватает денег): ${insufficient}.</div>` : ""}
+          ${suspended ? `<div>Есть приостановленные услуги: ${suspended}.</div>` : ""}
+        `;
+      } else {
+        alerts.classList.add("hidden");
+        alerts.innerHTML = "";
+      }
+
+      // groups
+      const groupsEl = document.getElementById("groups");
+      groupsEl.innerHTML = "";
+
+      const groups = groupServices(filtered);
+      
+      // init groupVisibleCount for existing groups
+      for (const [t, items] of groups) {
+        if (groupVisibleCount[t] == null) groupVisibleCount[t] = Math.min(DEFAULT_GROUP_VISIBLE, items.length);
+        else groupVisibleCount[t] = Math.min(groupVisibleCount[t], items.length);
+      }
+document.getElementById("empty").classList.toggle("hidden", groups.length !== 0);
+
+      for (const [type, items] of groups) {
+        const groupMonthly = items.reduce((acc, s) => acc + computeTotal(s).total, 0);
+
+        const groupWrapper = document.createElement("div");
+        groupWrapper.className = "rounded-2xl border border-slate-200 overflow-hidden";
+
+        const header = document.createElement("div");
+        header.className = "px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2";
+        header.style.background = "var(--fm-soft)";
+        header.innerHTML = `
+          <div class="flex items-center gap-3">
+            <button class="h-9 w-9 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50" data-action="toggle-group">–</button>
+            <div>
+              <div class="font-semibold text-slate-900">${typeTitles[type] || typeTitles.other}</div>
+              <div class="text-xs text-slate-600">${groupVisibleCount[type]} из ${items.length} · ${rub(groupMonthly)}</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 justify-start sm:justify-end">
+            <button class="rounded-xl bg-white border border-slate-200 px-3 py-2 text-sm hover:bg-slate-50" data-action="show-more">
+              Показать ещё
+            </button>
+            <button class="rounded-xl bg-white border border-slate-200 px-3 py-2 text-sm hover:bg-slate-50" data-action="toggle-show-all">
+              Показать все
+            </button>
+            <button class="rounded-xl bg-white border border-slate-200 px-3 py-2 text-sm hover:bg-slate-50" data-action="collapse-group-addons">
+              Свернуть доп.услуги
+            </button>
+          </div>
+        `;
+
+                // button states
+        const showMoreBtn = header.querySelector('[data-action="show-more"]');
+        const toggleAllBtn = header.querySelector('[data-action="toggle-show-all"]');
+
+        const visible = groupVisibleCount[type] ?? Math.min(DEFAULT_GROUP_VISIBLE, items.length);
+        const hasMore = visible < items.length;
+
+        showMoreBtn.disabled = !hasMore;
+        showMoreBtn.classList.toggle("opacity-50", !hasMore);
+        showMoreBtn.classList.toggle("cursor-not-allowed", !hasMore);
+
+        toggleAllBtn.textContent = (visible >= items.length) ? "Свернуть" : "Показать все";
+        showMoreBtn.textContent = hasMore ? `Показать ещё (+${Math.min(DEFAULT_GROUP_VISIBLE, items.length - visible)})` : "Показать ещё";
+const body = document.createElement("div");
+        body.className = "p-4 flex flex-col gap-4";
+
+        header.querySelector('[data-action="toggle-group"]').addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          const collapsed = body.classList.toggle("hidden");
+          btn.textContent = collapsed ? "+" : "–";
+        });
+
+        header.querySelector('[data-action="collapse-group-addons"]').addEventListener("click", () => {
+          body.querySelectorAll('[data-card="addonBlock"]').forEach(el => el.classList.add("hidden"));
+          body.querySelectorAll('[data-card="toggleAddonsBtn"]').forEach(btn => btn.textContent = "Показать доп.услуги");
+        });
+
+        
+
+        // show more items in group
+        header.querySelector('[data-action="show-more"]').addEventListener("click", () => {
+          const cur = groupVisibleCount[type] ?? Math.min(DEFAULT_GROUP_VISIBLE, items.length);
+          groupVisibleCount[type] = Math.min(cur + DEFAULT_GROUP_VISIBLE, items.length);
+          render();
+        });
+
+        // toggle show all / collapse back to default
+        header.querySelector('[data-action="toggle-show-all"]').addEventListener("click", (e) => {
+          const visible = groupVisibleCount[type] ?? Math.min(DEFAULT_GROUP_VISIBLE, items.length);
+          const isAll = (visible >= items.length);
+          groupVisibleCount[type] = isAll ? Math.min(DEFAULT_GROUP_VISIBLE, items.length) : items.length;
+          render();
+        });
+for (const s of items.slice(0, groupVisibleCount[type])) {
+          const { addonsSum, total } = computeTotal(s);
+          const hasAddonProblems = s.addons.some(a => a.status === "insufficient_funds");
+
+          const card = document.createElement("div");
+          card.className = "fm-card shadow-sm";
+
+          card.innerHTML = `
+            <div class="p-4 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
+              <div class="flex-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <div class="text-lg font-semibold" style="color:var(--fm-purple);">${escapeHtml(s.name)}</div>
+                  <span class="${pillClass(s.status)}">${serviceStatusLabel(s.status)}</span>
+                  ${hasAddonProblems ? `<span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium bg-rose-50 text-rose-700 ring-1 ring-rose-200">Внимание: продление</span>` : ""}
+                </div>
+
+                <div class="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm text-slate-700">
+                  <div class="rounded-xl bg-white/60 border border-slate-200 px-3 py-2">
+                    <div class="text-xs text-slate-500">IP-адрес</div>
+                    <div class="font-medium">${escapeHtml(s.primaryIp || "—")}</div>
+                  </div>
+                  <div class="rounded-xl bg-white/60 border border-slate-200 px-3 py-2">
+                    <div class="text-xs text-slate-500">Оплачено до</div>
+                    <div class="font-medium">${escapeHtml(s.paidUntil)}</div>
+                  </div>
+                  <div class="rounded-xl bg-white/60 border border-slate-200 px-3 py-2">
+                    <div class="text-xs text-slate-500">Локация</div>
+                    <div class="font-medium">${escapeHtml(s.location || "—")}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col sm:flex-row xl:flex-col items-start sm:items-center xl:items-end gap-2">
+                <div class="text-right">
+                  <div class="text-xs text-slate-500">Итого по услуге</div>
+                  <div class="text-xl font-semibold text-slate-900">${rub(total)}</div>
+                  <div class="text-xs text-slate-500">База: ${rub(s.basePriceRubMonthly)} · Допы (активные): ${rub(addonsSum)}</div>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                  <button class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50">
+                    Управлять
+                  </button>
+                  <button class="rounded-xl bg-slate-900 text-white px-3 py-2 text-sm hover:bg-slate-800" data-card="toggleAddonsBtn">
+                    Показать доп.услуги
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-4 pb-4 hidden" data-card="addonBlock">
+              <div class="rounded-2xl border border-slate-200 overflow-hidden">
+                <div class="px-4 py-2 flex items-center justify-between" style="background:var(--fm-soft);">
+                  <div class="text-sm font-semibold text-slate-900">Дополнительные услуги</div>
+                  <button class="text-sm rounded-xl bg-white border border-slate-200 px-3 py-1.5 hover:bg-slate-50">
+                    Добавить доп.услугу
+                  </button>
+                </div>
+                <div class="divide-y divide-slate-200" data-card="addonsList"></div>
+              </div>
+            </div>
+          `;
+
+          const addonsListEl = card.querySelector('[data-card="addonsList"]');
+          for (const a of s.addons) {
+            const row = document.createElement("div");
+            row.className = "px-4 py-3";
+            row.innerHTML = `
+              <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <div class="font-semibold text-slate-900">${escapeHtml(a.title)}</div>
+                    <span class="${addonPillClass(a.status)}">${addonStatusLabel(a.status)}</span>
+                  </div>
+                  ${a.description ? `<div class="text-sm text-slate-600 mt-1">${escapeHtml(a.description)}</div>` : ""}
+
+                  ${a.meta && a.meta.length ? `
+                    <div class="mt-2 flex flex-wrap gap-2">
+                      ${a.meta.map(m => `
+                        <div class="text-xs rounded-full bg-slate-50 border border-slate-200 px-2 py-1 text-slate-700">
+                          <span class="text-slate-500">${escapeHtml(m.k)}:</span> ${escapeHtml(m.v)}
+                        </div>
+                      `).join("")}
+                    </div>
+                  ` : ""}
+                </div>
+
+                <div class="md:text-right">
+                  <div class="text-xs text-slate-500">Продление</div>
+                  <div class="text-sm font-medium text-slate-900">${escapeHtml(a.renewAt)}</div>
+                  <div class="text-xs text-slate-500 mt-1">Стоимость</div>
+                  <div class="text-sm font-semibold text-slate-900">${rub(a.priceRubMonthly)}</div>
+
+                  <div class="mt-2 flex gap-2 md:justify-end">
+                    ${a.status === "inactive"
+                      ? `<button class="rounded-xl bg-slate-900 text-white px-3 py-2 text-sm hover:bg-slate-800">Подключить</button>`
+                      : `<button class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50">Настроить</button>`
+                    }
+                    <button class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm hover:bg-slate-50">Подробнее</button>
+                  </div>
+                </div>
+              </div>
+
+              ${a.status === "insufficient_funds" ? `
+                <div class="mt-3 rounded-xl bg-rose-50 border border-rose-200 px-3 py-2 text-sm text-rose-800">
+                  Не хватает денег для продления. Пополните баланс или отключите услугу до даты продления.
+                </div>
+              ` : ""}
+            `;
+            addonsListEl.appendChild(row);
+          }
+
+          const toggleBtn = card.querySelector('[data-card="toggleAddonsBtn"]');
+          const addonBlock = card.querySelector('[data-card="addonBlock"]');
+          toggleBtn.addEventListener("click", () => {
+            const isHidden = addonBlock.classList.toggle("hidden");
+            toggleBtn.textContent = isHidden ? "Показать доп.услуги" : "Скрыть доп.услуги";
+          });
+
+          body.appendChild(card);
+        }
+
+        groupWrapper.appendChild(header);
+        groupWrapper.appendChild(body);
+        groupsEl.appendChild(groupWrapper);
+      }
+    }
+
+    document.getElementById("search").addEventListener("input", render);
+    render();
+  </script>
+</body>
+</html>
