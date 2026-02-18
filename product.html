@@ -926,7 +926,35 @@ main.wrap > .section{
   letter-spacing: -0.01em;
 }
 
-</style>
+    /* Hero alignment guard: keep logo/title/subtitle stable across page switches */
+    main.wrap > .hero:first-of-type{
+      padding: clamp(36px, 5vw, 64px) 0 22px;
+    }
+    main.wrap > .hero:first-of-type .kicker{
+      margin: 0 auto 12px;
+      max-width: var(--content);
+      justify-content: center;
+    }
+    main.wrap > .hero:first-of-type .kicker-logo{
+      height: 26px;
+    }
+    main.wrap > .hero:first-of-type h1{
+      margin: 0;
+      font-size: var(--step-4);
+      line-height: var(--lh-tight);
+      letter-spacing: var(--ls-tight);
+      text-align: center;
+    }
+    main.wrap > .hero:first-of-type .sub{
+      margin: 12px auto 0;
+      max-width: var(--content);
+      text-align: center;
+      font-size: var(--step-1);
+      line-height: var(--lh-loose);
+      color: var(--muted);
+    }
+
+  </style>
 </head>
 <body>
 <header class="nav">
