@@ -11,7 +11,7 @@
     overlay.innerHTML = [
       '<div class="lead-modal" role="dialog" aria-modal="true" aria-labelledby="lead-modal-title">',
       '  <div class="lead-modal-head">',
-      '    <h3 class="lead-modal-title" id="lead-modal-title">Запросить демо / пилот</h3>',
+      '    <h3 class="lead-modal-title" id="lead-modal-title">Запросить демо</h3>',
       '    <button class="lead-modal-close" type="button" data-close-lead-modal aria-label="Закрыть">×</button>',
       '  </div>',
       '  <div class="lead-modal-body">',
@@ -150,7 +150,7 @@
       submitBtn.disabled = true;
 
       const payload = {
-        intent: currentIntent || "Запросить демо / пилот",
+        intent: currentIntent || "Запросить демо",
         source: currentSource || "",
         page: window.location.pathname,
         name: form.name.value.trim(),
