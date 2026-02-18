@@ -621,7 +621,37 @@
 .meta-item .v{display:block; font-weight: 650;}
 .meta-item.result-group{min-width: 320px;}
 .meta-pills{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
-.result-pill{display:inline-flex; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid rgba(0,0,0,0.09); background:rgba(255,255,255,.75); font-size:12px; font-weight:650; line-height:1.2;}
+.result-pill{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(11,18,32,.12);
+  background: rgba(255,255,255,.88);
+  font-size:13px;
+  font-weight:700;
+  line-height:1.2;
+}
+.result-pill.map{
+  border-color: rgba(31,183,159,.26);
+  background: rgba(31,183,159,.11);
+  color: rgba(9,79,66,.96);
+}
+.result-pill.risks{
+  border-color: rgba(241,167,73,.28);
+  background: rgba(241,167,73,.13);
+  color: rgba(115,65,7,.96);
+}
+.result-pill.reports{
+  border-color: rgba(93,123,179,.30);
+  background: rgba(93,123,179,.13);
+  color: rgba(31,57,104,.96);
+}
+.result-pill.drift{
+  border-color: rgba(91,101,125,.30);
+  background: rgba(91,101,125,.14);
+  color: rgba(36,45,63,.96);
+}
 .hero-inner{display:grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: start;}
 .hero-card{padding: 18px 18px; border-radius: 18px; background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.06);}
 .hero-card-title{font-weight: 700; margin-bottom: 10px;}
@@ -1111,15 +1141,25 @@ p{color: var(--muted);}
             <a class="btn" href="/#capabilities">Вернуться к главной</a>
           </div>
           <div class="meta-row">
-            <div class="meta-item"><span class="k">Доступ</span><span class="v">Read-only</span></div>
-            <div class="meta-item"><span class="k">Агенты</span><span class="v">Не требуются</span></div>
+            <div class="meta-item">
+              <span class="k">Доступ</span>
+              <div class="meta-pills" aria-label="Доступ">
+                <span class="result-pill">Read-only</span>
+              </div>
+            </div>
+            <div class="meta-item">
+              <span class="k">Агенты</span>
+              <div class="meta-pills" aria-label="Агенты">
+                <span class="result-pill">Не требуются</span>
+              </div>
+            </div>
             <div class="meta-item result-group">
               <span class="k">Результат</span>
               <div class="meta-pills" aria-label="Результаты">
-                <span class="result-pill">Карта</span>
-                <span class="result-pill">Топ‑риски</span>
-                <span class="result-pill">Отчёты</span>
-                <span class="result-pill">Уведомления изменений</span>
+                <span class="result-pill map">Карта</span>
+                <span class="result-pill risks">Топ‑риски</span>
+                <span class="result-pill reports">Отчёты</span>
+                <span class="result-pill drift">Уведомления изменений</span>
               </div>
             </div>
           </div>
