@@ -6,6 +6,7 @@
   <title>Oasis Defender - Единая карта мультиоблачной инфраструктуры и рисков - партнёрская модель распространения</title>
   <meta name="description" content="Партнёрская модель Oasis Defender: как провайдер может встроить анализ мультиоблачной и гибридной инфраструктуры в свой продукт и сервис." />
   <meta name="theme-color" content="#1fb79f" />
+  <link rel="stylesheet" href="/assets/lead-modal.css" />
 
   <!-- Базовые стили из шаблона -->
   <style>
@@ -369,6 +370,9 @@
     main.wrap > .section{
       padding: clamp(24px, 3vw, 34px) 0;
     }
+    main.wrap > .section > .content{
+      max-width: var(--max);
+    }
     .section-title{
       margin: 0 0 10px;
       font-size: var(--step-2);
@@ -485,11 +489,11 @@
       grid-column: 2;
       grid-row: 1 / span 2;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
       justify-content: center;
-      gap: 6px 14px;
-      max-width: 260px;
+      gap: 12px;
+      white-space: nowrap;
     }
     .footer-links a{
       font-size: clamp(12px, .78vw, 13px);
@@ -497,6 +501,7 @@
       text-transform: uppercase;
       font-weight: 700;
       color: rgba(11,18,32,.58);
+      white-space: nowrap;
     }
     .footer-email{
       grid-column: 3;
@@ -596,6 +601,10 @@
       </div>
       <h1>Единая карта мультиоблачной инфраструктуры и рисков.<br/>Партнёрская модель</h1>
       <p class="sub">Agent‑less, read‑only анализ мультиоблачной и гибридной инфраструктуры: единая карта, реальная связность и приоритетные риски&nbsp;— как часть вашего продукта.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#" data-open-lead-modal data-lead-source="partners-hero" data-lead-intent="Запросить демо / пилот">Запросить демо / пилот</a>
+        <a class="btn" href="/product.html">К странице продукта</a>
+      </div>
     </section>
 
     <!-- Блоки партнёрской страницы -->
@@ -881,5 +890,7 @@
     </div>
   </footer>
 
+  <script>window.OASIS_LEAD_ENDPOINT = "/api/lead.php";</script>
+  <script src="/assets/lead-modal.js"></script>
 </body>
 </html>

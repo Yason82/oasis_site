@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Oasis Defender - единая карта мультиоблачной инфраструктуры и рисков - описание продукта</title>
 <meta name="description" content="Техническое описание Oasis Defender: коннекторы, нормализация, граф связности, приоритизация рисков, отчёты и модель доступа.">
+<link rel="stylesheet" href="/assets/lead-modal.css">
 <style>
 
     /* =========================================
@@ -1029,11 +1030,11 @@ main.wrap > .section{
       grid-column: 2;
       grid-row: 1 / span 2;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
       justify-content: center;
-      gap: 6px 14px;
-      max-width: 260px;
+      gap: 12px;
+      white-space: nowrap;
     }
     .footer-links a{
       font-size: clamp(12px, .78vw, 13px);
@@ -1041,6 +1042,7 @@ main.wrap > .section{
       text-transform: uppercase;
       font-weight: 700;
       color: rgba(11,18,32,.58);
+      white-space: nowrap;
     }
     .footer-email{
       grid-column: 3;
@@ -1144,9 +1146,9 @@ main.wrap > .section{
 <section class="hero" aria-label="Продукт">
       <div class="hero-inner">
         <div class="hero-copy">
-          <p class="lead">Техническое описание: как мы собираем данные из разных облаков и частных сред, строим модель связности и получаем приоритетные риски и отчёты.</p>
+          <p class="lead">Техническое описание: как Oasis Defender собирает данные из разных облаков и частных сред, строит модель связности и получает приоритетные риски и отчёты</p>
           <div class="cta-row">
-            <a class="btn primary" href="/partners.html">Запросить демо / пилот</a>
+            <a class="btn primary" href="#" data-open-lead-modal data-lead-source="product-hero" data-lead-intent="Запросить демо / пилот">Запросить демо / пилот</a>
             <a class="btn" href="/#capabilities">Вернуться к главной</a>
           </div>
           <div class="meta-row">
@@ -1461,5 +1463,7 @@ main.wrap > .section{
       </a>
     </div>
   </footer>
+  <script>window.OASIS_LEAD_ENDPOINT = "/api/lead.php";</script>
+  <script src="/assets/lead-modal.js"></script>
 </body>
 </html>

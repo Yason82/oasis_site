@@ -6,6 +6,7 @@
   <title>Oasis Defender - Единая карта мультиоблачной инфраструктуры и рисков - часто задаваемые вопросы</title>
   <meta name="description" content="Единая карта мультиоблачной инфраструктуры и рисков. Объединяем инфраструктуру разных облаков и частных сред в одном окне. Вы видите реальную связность между системами и приоритетные риски" />
   <meta name="theme-color" content="#1fb79f" />
+  <link rel="stylesheet" href="/assets/lead-modal.css" />
 
   <style>
     /* =========================================
@@ -760,11 +761,11 @@
       grid-column: 2;
       grid-row: 1 / span 2;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
       justify-content: center;
-      gap: 6px 14px;
-      max-width: 260px;
+      gap: 12px;
+      white-space: nowrap;
     }
     .footer-links a{
       font-size: clamp(12px, .78vw, 13px);
@@ -772,6 +773,7 @@
       text-transform: uppercase;
       font-weight: 700;
       color: rgba(11,18,32,.58);
+      white-space: nowrap;
     }
     .footer-email{
       grid-column: 3;
@@ -942,7 +944,7 @@
         </div>
 
         <div class="final-cta" style="margin-top:18px">
-          <a class="btn primary" href="mailto:info@oasisdefender.ru?subject=Oasis%20Defender%20—%20вопрос">Задать вопрос</a>
+          <a class="btn primary" href="#" data-open-lead-modal data-lead-source="faq-bottom" data-lead-intent="Задать вопрос">Задать вопрос</a>
           <a class="btn" href="/product.html">К продукту</a>
         </div>
       </div>
@@ -1001,5 +1003,7 @@
     </div>
   </footer>
 
+  <script>window.OASIS_LEAD_ENDPOINT = "/api/lead.php";</script>
+  <script src="/assets/lead-modal.js"></script>
 </body>
 </html>
